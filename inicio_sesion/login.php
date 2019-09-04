@@ -1,3 +1,23 @@
+<?php 
+include_once '../formulario/credenciales.php';
+if(!empty($_POST)) {
+  $names = $_POST['names'];
+  $email = $_POST['email'];
+  $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+  $sql = "INSERT INTO users(name, email, password) VALUES (:name, :email, :password)";
+
+  $query = $pdo->prepare($sql);
+
+  $query->execute([
+    'name' => $names,
+    'email' => $email,
+    'password' => $password,
+  ]);
+
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,11 +46,12 @@
 
     <section class="login">
       <div class="login__container">
-        <h2 tabindex="0">Inicia Sesión</h2>
+        <h2 tabindex="0">Registrarse</h2>
         <form class="login__container--form" action="" method="post">
-          <input aria-label="Correo" class="input" type="email" name="" placeholder="Correo">
-          <input aria-label="Contraseña" class="input" type="password" name="" placeholder="Contraseña">
-          <button class="button"  type="submit">Iniciar Sesión</button>
+          <input aria-label="Names" class="input" type="text" name="names" placeholder="Nombres">
+          <input aria-label="Correo" class="input" type="email" name="email" placeholder="Correo">
+          <input aria-label="Contraseña" class="input" type="password" name="password" placeholder="Contraseña">
+          <button class="button"  type="submit">Registrarse</button>
           <div class="login__container--remember-me">
             <label >
               <input type="checkbox" name="box1" value="checkbox">Recuerdame

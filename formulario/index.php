@@ -1,19 +1,19 @@
 
 <?php 
-    require_once './credenciales.php';
+    include_once './credenciales.php';
     if(!empty($_POST)) {
       $titulo = $_POST['titulo'];
       $contenido = $_POST['contenido'];
       $enlace = $_POST['enlace'];
 
-      $sql = "INSERT INTO posts(title, contenido, enlace) VALUES (:title, :contenido, :enlace)";
+      $sql = "INSERT INTO posts(title, contenido, enlace) VALUES (:loquesea, :content, :link)";
 
       $query = $pdo->prepare($sql);
 
-      $result = $query->execute([
-        'title' => $titulo,
-        'contenido' => $contenido,
-        'enlace' => $enlace
+$query->execute([
+        'loquesea' => $titulo,
+        'content' => $contenido,
+        'link' => $enlace
       ]);
     }
   // Variables super Globales son variables que existen en PHP y nos ayudan acceder a ciertas partes
@@ -38,6 +38,7 @@
     // Ejemplo: Nos permiten acceder a ; 
       // - Sesión, -Cookies, -Parametros, -Valores del servidor
       var_dump($_POST);
+      var_dump($_GET);
       // echo 'Hola :=)'
   ?>
 </div>
