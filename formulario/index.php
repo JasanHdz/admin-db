@@ -1,3 +1,26 @@
+
+<?php 
+    require_once './credenciales.php';
+    if(!empty($_POST)) {
+      $titulo = $_POST['titulo'];
+      $contenido = $_POST['contenido'];
+      $enlace = $_POST['enlace'];
+
+      $sql = "INSERT INTO posts(title, contenido, enlace) VALUES (:title, :contenido, :enlace)";
+
+      $query = $pdo->prepare($sql);
+
+      $result = $query->execute([
+        'title' => $titulo,
+        'contenido' => $contenido,
+        'enlace' => $enlace
+      ]);
+    }
+  // Variables super Globales son variables que existen en PHP y nos ayudan acceder a ciertas partes
+  // Ejemplo: Nos permiten acceder a ; 
+    // - Sesión, -Cookies, -Parametros, -Valores del servidor
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,22 +32,35 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div>
+  <?php 
+    // Variables super Globales son variables que existen en PHP y nos ayudan acceder a ciertas partes
+    // Ejemplo: Nos permiten acceder a ; 
+      // - Sesión, -Cookies, -Parametros, -Valores del servidor
+      var_dump($_POST);
+      // echo 'Hola :=)'
+  ?>
+</div>
   <section class="formulario">
       <div class="form__container">
         <h2>Realiza un Post</h2>
         <h3>Comparte un video interesante para la comunidad</h3>
-        <form class="form__container--form" method="POST">
+        <form action="" class="form__container--form" method="POST">
           <div class="form__container--item">
-            <input autofocus autocomplete="off" type="text" class="input" placeholder="Titulo">
+            <input name="titulo" autofocus autocomplete="off" type="text" class="input" placeholder="Titulo">
             <textarea 
-              name="" 
+              name="contenido" 
               id="" cols="30" rows="5" 
               placeholder="¿Qué estas pensando?, Comparte :)"
               ></textarea>
           </div>
           <div class="form__container--item">
-            <input autocomplete="off" type="text" class="input" placeholder="Enlace de video...">
-            <button class="button" type="button">Enviar</button>
+            <input 
+              name="enlace"
+              autocomplete="off" 
+              type="text" class="input" 
+              placeholder="Enlace de video...">
+            <button class="button" type="submit">Enviar</button>
           </div>
         </form>
       </div>
